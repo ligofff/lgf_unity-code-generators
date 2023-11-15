@@ -1,0 +1,11 @@
+{
+  "name": "Unity.com.ligofff.lgf_unity-code-generators.Editor.Tests",
+  "references": [
+    "Unity.com.ligofff.lgf_unity-code-generators"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": []
+}
