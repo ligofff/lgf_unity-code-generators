@@ -9,6 +9,7 @@ using UnityEngine;
 /// <summary>
 /// Need parameters:
 /// resourcesFolderName - string
+/// resourceConstantTypes - List<string>
 /// </summary>
 public class UnityConstantsGenerator_LGFCodeGenerator : ILGFCodeGenerator
 {
@@ -44,6 +45,24 @@ public class UnityConstantsGenerator_LGFCodeGenerator : ILGFCodeGenerator
         {
             var instance = (IResourcesGeneratorTypes) Activator.CreateInstance(interfaceRealization);
             generateTypes = generateTypes.Concat(instance.Types()).ToList();
+        }
+        
+        if (parameters.TryGetValue("resourceConstantTypes", out var resourceConstantTypes))
+        {
+            var resourceConstantTypesList = (List<string>)resourceConstantTypes;
+
+            foreach (var resourceConstantType in resourceConstantTypesList)
+            {
+                var type = Type.GetType(resourceConstantType);
+                if (type != null)
+                {
+                    generateTypes.Add(type);
+                }
+                else
+                {
+                    throw new Exception($"Type {resourceConstantType} not found!");
+                }
+            }
         }
         
         foreach (var type in generateTypes)

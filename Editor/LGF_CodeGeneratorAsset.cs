@@ -15,15 +15,19 @@ namespace Editor
         [Space]
         public string resourceConstantAssetsFolderName = "_ResourceConstants";
         
+        [Space]
+        public List<string> resourceConstantTypesForDefaultGeneration = new List<string>();
+        
         private string FolderPath => $"{Application.dataPath}/{generatedFolderPath}";
         
         [ContextMenu("Generate")]
-        private void GenerateAll()
+        public void GenerateAll()
         {
             ValidateOutputFolder();
             
             var parameters = new Dictionary<string, object>();
             parameters["resourcesFolderName"] = resourceConstantAssetsFolderName;
+            parameters["resourceConstantTypes"] = resourceConstantTypesForDefaultGeneration;
 
             var generatorTypes = TypeCache.GetTypesDerivedFrom<ILGFCodeGenerator>();
 
